@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Deep Halder — Senior AI SDET · LLM Evaluation · Agent Testing</title>
+  <meta name="description" content="Deep Halder — Senior AI SDET specializing in AI Evaluation, LLM Quality, Agent Testing, and Automation Infrastructure." />
+  <meta property="og:title" content="Deep Halder — I make AI prove itself." />
+  <meta property="og:description" content="Senior AI SDET · LLM Evaluation · Agent Testing · Automation Infrastructure" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://deephalder.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='80' fill='%2300ffc8' font-family='monospace'>✓</text></svg>" />
+</head>
+<body>
+
+  <!-- ============ BOOT LOADER ============ -->
+  <div class="boot" id="boot" aria-hidden="true">
+    <div class="boot__terminal">
+      <div class="boot__bar">
+        <span class="boot__dot"></span><span class="boot__dot"></span><span class="boot__dot"></span>
+        <span class="boot__title">eval — deephalder.com</span>
+      </div>
+      <pre class="boot__body" id="bootBody"></pre>
+    </div>
+    <button class="boot__skip" id="bootSkip">skip ⏎</button>
+  </div>
+
+  <!-- ============ CURSOR ============ -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
+
+  <!-- ============ SCROLL PROGRESS ============ -->
+  <div class="progress" id="progress"></div>
+
+  <!-- ============ NAV ============ -->
+  <nav class="nav">
+    <a class="nav__logo" href="#top" data-hover>
+      <span class="nav__prompt">~/</span>deep<span class="accent">halder</span>
+    </a>
+    <div class="nav__links">
+      <a href="#about" data-hover><span class="nav__idx">01.</span>about</a>
+      <a href="#evals" data-hover><span class="nav__idx">02.</span>evals</a>
+      <a href="#work" data-hover><span class="nav__idx">03.</span>work</a>
+      <a href="#contact" data-hover><span class="nav__idx">04.</span>contact</a>
+    </div>
+    <a class="nav__cta" href="mailto:deep@sentient.xyz" data-hover>say hi</a>
+  </nav>
+
+  <!-- ============ HERO ============ -->
+  <header class="hero" id="top">
+    <canvas id="net" class="hero__canvas" aria-hidden="true"></canvas>
+    <div class="hero__inner">
+      <p class="hero__pre mono">// status: <span class="accent">all checks passing</span><span class="blink">▌</span></p>
+      <h1 class="hero__name glitch" data-text="DEEP HALDER">DEEP&nbsp;HALDER</h1>
+      <div class="hero__role mono">
+        <span class="hero__role-static">I am a&nbsp;</span><span class="accent" id="roleTyper"></span><span class="caret">_</span>
+      </div>
+      <p class="hero__tag">
+        I make AI systems <em>prove</em> themselves — building the evaluation
+        frameworks, agent tests, and automation that decide whether an AI is
+        actually ready to ship.
+      </p>
+      <div class="hero__actions">
+        <a class="btn btn--solid" href="#work" data-hover>see my work</a>
+        <a class="btn btn--ghost" href="mailto:deep@sentient.xyz" data-hover>deep@sentient.xyz</a>
+      </div>
+    </div>
+    <div class="hero__scroll mono" aria-hidden="true">scroll<span class="hero__scroll-line"></span></div>
+  </header>
+
+  <!-- ============ MARQUEE ============ -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <span>LLM EVALUATION ✦ AGENT TESTING ✦ HALLUCINATION DETECTION ✦ TOOL-CALL VALIDATION ✦ BENCHMARK DESIGN ✦ AUTOMATION INFRA ✦ RELEASE CONFIDENCE ✦ REGRESSION SYSTEMS ✦&nbsp;</span>
+      <span>LLM EVALUATION ✦ AGENT TESTING ✦ HALLUCINATION DETECTION ✦ TOOL-CALL VALIDATION ✦ BENCHMARK DESIGN ✦ AUTOMATION INFRA ✦ RELEASE CONFIDENCE ✦ REGRESSION SYSTEMS ✦&nbsp;</span>
+    </div>
+  </div>
+
+  <main>
+    <!-- ============ ABOUT ============ -->
+    <section class="section" id="about">
+      <h2 class="section__title reveal"><span class="section__idx mono">01.</span> about</h2>
+      <div class="about">
+        <div class="about__text reveal">
+          <p>
+            Everyone's shipping AI. Someone has to ask it the hard questions first —
+            <span class="hl">that's me.</span>
+          </p>
+          <p>
+            I'm a <strong>Senior AI SDET at Sentient Labs</strong>, where I design
+            evaluation frameworks for LLMs and agentic systems: hallucination
+            detection, reasoning validation, tool-use accuracy, prompt adherence,
+            gold datasets, and the regression infrastructure that turns
+            "it seems fine" into <span class="hl">measured confidence</span>.
+          </p>
+          <p>
+            Before this, I was the <strong>founding QA engineer at Level AI</strong>,
+            building the quality function from zero — voice AI, conversational AI,
+            STT accuracy, intent detection — back when testing AI meant inventing
+            the playbook as you went.
+          </p>
+          <p class="mono about__loc">📍 Assam, India · open to global remote</p>
+        </div>
+        <div class="about__card reveal">
+          <div class="tcard">
+            <div class="tcard__bar">
+              <span class="tcard__dot"></span><span class="tcard__dot"></span><span class="tcard__dot"></span>
+              <span class="tcard__title mono">whoami.json</span>
+            </div>
+            <pre class="tcard__code mono">{
+  <span class="c-key">"name"</span>: <span class="c-str">"Deep Halder"</span>,
+  <span class="c-key">"role"</span>: <span class="c-str">"Senior AI SDET"</span>,
+  <span class="c-key">"org"</span>: <span class="c-str">"Sentient Labs"</span>,
+  <span class="c-key">"obsessions"</span>: [
+    <span class="c-str">"agent reliability"</span>,
+    <span class="c-str">"evals that catch lies"</span>,
+    <span class="c-str">"green checks that
+     don't lie"</span>
+  ],
+  <span class="c-key">"trusts_ai_blindly"</span>: <span class="c-bool">false</span>
+}</pre>
+          </div>
+          <div class="about__stats">
+            <div class="stat"><span class="stat__num accent" data-count="2">0</span><span class="stat__label mono">AI companies,<br>0→1 quality orgs</span></div>
+            <div class="stat"><span class="stat__num accent" data-count="1000" data-suffix="+">0</span><span class="stat__label mono">eval runs<br>automated</span></div>
+            <div class="stat"><span class="stat__num accent" data-count="0">0</span><span class="stat__label mono">hallucinations<br>given a pass</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ EVALS (SKILLS) ============ -->
+    <section class="section" id="evals">
+      <h2 class="section__title reveal"><span class="section__idx mono">02.</span> evals <span class="section__sub mono">// my skills, scored the way I score models</span></h2>
+      <div class="evals">
+
+        <div class="eval reveal">
+          <div class="eval__head">
+            <span class="eval__name mono">benchmark: ai_evaluation</span>
+            <span class="eval__badge pass mono">PASS</span>
+          </div>
+          <p class="eval__desc">LLM evaluation · hallucination detection · agent &amp; tool-call testing · benchmark + gold dataset design · response quality scoring</p>
+          <div class="eval__bar"><div class="eval__fill" data-score="96"></div></div>
+          <span class="eval__score mono" data-target="96">0%</span>
+        </div>
+
+        <div class="eval reveal">
+          <div class="eval__head">
+            <span class="eval__name mono">benchmark: automation</span>
+            <span class="eval__badge pass mono">PASS</span>
+          </div>
+          <p class="eval__desc">Playwright · Selenium · REST Assured · Postman · API / web / backend testing · CI/CD-integrated regression suites</p>
+          <div class="eval__bar"><div class="eval__fill" data-score="94"></div></div>
+          <span class="eval__score mono" data-target="94">0%</span>
+        </div>
+
+        <div class="eval reveal">
+          <div class="eval__head">
+            <span class="eval__name mono">benchmark: engineering</span>
+            <span class="eval__badge pass mono">PASS</span>
+          </div>
+          <p class="eval__desc">Python · Java · SQL · test strategy &amp; planning · idempotency &amp; failure-mode testing · replay-based validation</p>
+          <div class="eval__bar"><div class="eval__fill" data-score="91"></div></div>
+          <span class="eval__score mono" data-target="91">0%</span>
+        </div>
+
+        <div class="eval reveal">
+          <div class="eval__head">
+            <span class="eval__name mono">benchmark: cloud_devops</span>
+            <span class="eval__badge train mono">TRAINING</span>
+          </div>
+          <p class="eval__desc">Cloud platforms · DevOps · infra-as-code — actively levelling up. (Honest evals only. That's the whole point.)</p>
+          <div class="eval__bar"><div class="eval__fill eval__fill--train" data-score="68"></div></div>
+          <span class="eval__score mono" data-target="68">0%</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============ WORK / EXPERIENCE ============ -->
+    <section class="section" id="work">
+      <h2 class="section__title reveal"><span class="section__idx mono">03.</span> work</h2>
+      <div class="timeline">
+
+        <article class="tl reveal">
+          <div class="tl__node"></div>
+          <div class="tl__when mono">Jul 2025 — now</div>
+          <div class="tl__body">
+            <h3 class="tl__role">Senior AI SDET · AI Evaluation Lead</h3>
+            <p class="tl__org accent mono">Sentient Labs</p>
+            <p class="tl__desc">
+              Designing the evaluation layer for frontier-style AI systems: agentic
+              AI validation, AGI evaluation frameworks, reasoning &amp; tool-use
+              testing, hallucination detection pipelines, and the automation infra
+              that gives every release a measurable confidence score.
+            </p>
+            <ul class="tl__tags mono">
+              <li>llm evals</li><li>agent testing</li><li>gold datasets</li><li>regression systems</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="tl reveal">
+          <div class="tl__node"></div>
+          <div class="tl__when mono">before that</div>
+          <div class="tl__body">
+            <h3 class="tl__role">Founding QA Engineer</h3>
+            <p class="tl__org accent mono">Level AI</p>
+            <p class="tl__desc">
+              Built the QA function from 0 → 1 at a voice-AI startup: conversational
+              AI validation, STT accuracy testing, intent &amp; entity extraction,
+              call summarization quality, agent-assist testing — plus the automation
+              strategy and CI/CD integration to keep it all honest at speed.
+            </p>
+            <ul class="tl__tags mono">
+              <li>voice ai</li><li>0→1 qa org</li><li>conversational ai</li><li>ci/cd</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="tl reveal">
+          <div class="tl__node"></div>
+          <div class="tl__when mono">always</div>
+          <div class="tl__body">
+            <h3 class="tl__role">Building in public</h3>
+            <p class="tl__org accent mono">AI quality tooling &amp; writing</p>
+            <p class="tl__desc">
+              Open AI-evaluation tooling and essays on testing AI systems — like an
+              AI-powered package discrepancy detector, replay-based validation
+              patterns, and multi-layer security review pipelines where a
+              deterministic scanner keeps the LLM reviewer honest.
+            </p>
+            <ul class="tl__tags mono">
+              <li>open source</li><li>ai testing essays</li><li>eval tooling</li>
+            </ul>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ============ CONTACT ============ -->
+    <section class="section section--contact" id="contact">
+      <h2 class="section__title reveal"><span class="section__idx mono">04.</span> contact</h2>
+      <div class="contact reveal">
+        <p class="contact__big">
+          Shipping an AI product and wondering<br />
+          <span class="accent">"…but does it actually work?"</span>
+        </p>
+        <p class="contact__sub">That question is my favorite conversation. Let's talk.</p>
+        <a class="btn btn--solid btn--big" href="mailto:deep@sentient.xyz" data-hover>deep@sentient.xyz</a>
+        <div class="contact__links mono">
+          <a href="https://www.linkedin.com/in/deephalder" target="_blank" rel="noopener" data-hover>linkedin ↗</a>
+          <a href="https://github.com/HalderDeep" target="_blank" rel="noopener" data-hover>github ↗</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer mono">
+    <span>© <span id="year"></span> Deep Halder · deephalder.com</span>
+    <span class="footer__right">designed &amp; evaluated by me · <span class="accent">exit code 0</span></span>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
