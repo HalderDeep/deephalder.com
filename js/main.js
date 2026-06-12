@@ -17,9 +17,9 @@
     { t: 'loading candidate: <span class="cmd">deep_halder_v2026</span>', d: 350 },
     { t: '<span class="ok">✓</span> hallucination_check ......... <span class="ok">PASS</span>', d: 280 },
     { t: '<span class="ok">✓</span> agent_reliability ........... <span class="ok">PASS</span>', d: 240 },
-    { t: '<span class="ok">✓</span> automation_coverage ......... <span class="ok">PASS</span>', d: 240 },
-    { t: '<span class="ok">✓</span> ships_with_confidence ....... <span class="ok">PASS</span>', d: 260 },
-    { t: '<span class="ok">4/4 benchmarks passed</span> · rendering portfolio…', d: 420 },
+    { t: '<span class="ok">✓</span> buzzword_density ............ <span class="ok">LOW — human-written</span>', d: 260 },
+    { t: '<span class="warn">⚠</span> chai_dependency ............. <span class="warn">HIGH — wontfix</span>', d: 280 },
+    { t: 'verdict: <span class="ok">strong hire</span> · rendering portfolio…', d: 420 },
   ];
 
   function finish() {
@@ -171,15 +171,15 @@
   const el = document.getElementById("roleTyper");
   if (!el) return;
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    el.textContent = "Senior AI SDET";
+    el.textContent = "a Senior AI SDET";
     return;
   }
   const roles = [
-    "Senior AI SDET",
-    "LLM Evaluation Engineer",
-    "Agent Tester",
-    "Hallucination Hunter",
-    "Automation Architect",
+    "a Senior AI SDET",
+    "an AI quality engineer",
+    "a professional skeptic",
+    "an eval-obsessed researcher",
+    "the “prove it” guy",
   ];
   let r = 0, c = 0, deleting = false;
 
