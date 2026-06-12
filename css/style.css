@@ -510,6 +510,23 @@ body::before {
   background: linear-gradient(90deg, rgba(255, 200, 87, 0.5), var(--warn));
   box-shadow: 0 0 14px rgba(255, 200, 87, 0.45);
 }
+.eval--red { grid-column: 1 / -1; }
+.eval--red .eval__desc { min-height: 0; max-width: 720px; }
+.eval--red:hover { border-color: rgba(255, 77, 136, 0.5); }
+.eval__badge.red {
+  color: #ff4d88;
+  background: rgba(255, 77, 136, 0.1);
+  border: 1px solid rgba(255, 77, 136, 0.4);
+  animation: redPulse 2.2s ease-in-out infinite;
+}
+@keyframes redPulse {
+  0%, 100% { box-shadow: 0 0 0 rgba(255, 77, 136, 0); }
+  50% { box-shadow: 0 0 16px rgba(255, 77, 136, 0.5); }
+}
+.eval__fill--red {
+  background: linear-gradient(90deg, rgba(255, 77, 136, 0.5), #ff4d88);
+  box-shadow: 0 0 14px rgba(255, 77, 136, 0.5);
+}
 .eval__score { font-size: 12px; color: var(--text-dim); }
 
 /* ============ TIMELINE ============ */
