@@ -576,6 +576,12 @@ body::before {
   margin-bottom: 18px;
 }
 .contact__sub { color: var(--text-dim); margin-bottom: 38px; font-size: 17px; }
+.contact__ctas {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
 .contact__links {
   margin-top: 34px;
   display: flex;
