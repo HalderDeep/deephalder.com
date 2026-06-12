@@ -235,5 +235,89 @@
   }
 })();
 
+/* ---------- interactive terminal easter egg ---------- */
+(function term() {
+  const box = document.getElementById("termBox");
+  const out = document.getElementById("termOut");
+  const input = document.getElementById("termIn");
+  if (!box || !out || !input) return;
+
+  box.addEventListener("click", () => input.focus());
+
+  function print(html) {
+    out.innerHTML += html + "\n";
+    out.scrollTop = out.scrollHeight;
+  }
+
+  function evalBars(name) {
+    const benches = [
+      ["curiosity", 85 + Math.floor(Math.random() * 15)],
+      ["scroll_depth", 70 + Math.floor(Math.random() * 30)],
+      ["taste_in_portfolios", 96 + Math.floor(Math.random() * 4)],
+      ["patience_for_buzzwords", Math.floor(Math.random() * 20)],
+    ];
+    let res = `running evals on <span class="cmd">${name}</span>…\n`;
+    for (const [b, s] of benches) {
+      const tag = b === "patience_for_buzzwords"
+        ? `<span class="warn">${s}% — LOW (relatable)</span>`
+        : `<span class="ok">${s}% PASS</span>`;
+      res += `<span class="ok">✓</span> ${b.padEnd(24, ".")} ${tag}\n`;
+    }
+    res += `verdict: <span class="ok">you should definitely message Deep</span> — try <span class="cmd">hire</span>`;
+    return res;
+  }
+
+  const CMDS = {
+    help: () =>
+      `available commands:\n` +
+      `  <span class="cmd">evals --self</span>   run my benchmarks on YOU\n` +
+      `  <span class="cmd">whoami</span>         who are you, visitor?\n` +
+      `  <span class="cmd">whois deep</span>     the short version\n` +
+      `  <span class="cmd">ls</span>             list site sections\n` +
+      `  <span class="cmd">cat resume</span>     download the PDF\n` +
+      `  <span class="cmd">hire</span>           do the thing\n` +
+      `  <span class="cmd">whatsapp</span>       say hi 👋\n` +
+      `  <span class="cmd">chai</span>           ☕ non-negotiable\n` +
+      `  <span class="cmd">clear</span>          wipe the screen`,
+    whoami: () => `guest@deephalder.com — visitor, possible recruiter, hopefully future teammate. <span class="ok">access: granted</span>`,
+    "whois deep": () => `Deep Halder · Senior AI SDET @ Sentient Labs · 8 yrs breaking software politely\nspecialty: making AI prove itself · base: Bangalore · status: <span class="ok">open to global remote</span>`,
+    ls: () => `01_about/  02_evals/  03_work/  04_why_hire_me/  05_off_the_clock/  06_contact/  <span class="ok">README: hire deep</span>`,
+    "cat resume": () => {
+      const a = document.createElement("a");
+      a.href = "assets/Deep-Halder-AI-SDET.pdf";
+      a.download = "Deep-Halder-AI-SDET.pdf";
+      document.body.appendChild(a); a.click(); a.remove();
+      return `streaming <span class="cmd">Deep-Halder-AI-SDET.pdf</span>… <span class="ok">download started ✓</span>`;
+    },
+    hire: () => {
+      setTimeout(() => { location.href = "mailto:deephalder00@gmail.com?subject=Let's talk — found you via deephalder.com"; }, 600);
+      return `opening channel to <span class="cmd">deephalder00@gmail.com</span>… <span class="ok">excellent decision.</span>`;
+    },
+    whatsapp: () => {
+      setTimeout(() => { window.open("https://api.whatsapp.com/send/?phone=916001266673&text&type=phone_number&app_absent=0", "_blank"); }, 400);
+      return `opening whatsapp… <span class="ok">👋</span>`;
+    },
+    chai: () => `      ( (\n       ) )\n    ........\n    |      |]\n    \\      /\n     '----'   <span class="warn">dependency: HIGH — wontfix</span>`,
+    clear: () => { out.innerHTML = ""; return null; },
+  };
+
+  function run(raw) {
+    const cmd = raw.trim().toLowerCase().replace(/\s+/g, " ");
+    if (!cmd) return;
+    print(`<span class="accent">$</span> <span class="cmd">${raw.replace(/[<>&]/g, "")}</span>`);
+    if (cmd.startsWith("sudo")) { print(`<span class="err">permission denied</span> — nice try. this incident will be reported to Deep.`); return; }
+    if (cmd === "evals --self" || cmd === "evals" || cmd === "run evals") { print(evalBars("visitor")); return; }
+    if (cmd === "rm -rf /") { print(`<span class="err">absolutely not.</span> I test destructive paths for a living.`); return; }
+    if (cmd === "exit" || cmd === "quit") { print(`there's no exit — only the <span class="cmd">hire</span> command.`); return; }
+    const handler = CMDS[cmd];
+    if (handler) { const res = handler(); if (res) print(res); }
+    else print(`<span class="err">command not found:</span> ${cmd.replace(/[<>&]/g, "")} — try <span class="cmd">help</span>`);
+  }
+
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") { run(input.value); input.value = ""; }
+  });
+})();
+
 /* ---------- footer year ---------- */
 document.getElementById("year").textContent = new Date().getFullYear();
