@@ -88,8 +88,10 @@
   if (!canvas) return;
   const ctx = canvas.getContext("2d");
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // cap DPR — a 3x backing store on phones is the #1 source of canvas jank/battery drain
+  const devicePixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
 
-  let W, H, nodes = [];
+  let W, H, nodes = [], rafId = null, running = false;
   const mouse = { x: -9999, y: -9999 };
   const DENSITY = 14000; // px² per node
   const LINK = 150;
@@ -97,7 +99,8 @@
   function resize() {
     W = canvas.width = canvas.offsetWidth * devicePixelRatio;
     H = canvas.height = canvas.offsetHeight * devicePixelRatio;
-    const count = Math.min(110, Math.floor((canvas.offsetWidth * canvas.offsetHeight) / DENSITY));
+    const cap = canvas.offsetWidth < 760 ? 42 : 110;
+    const count = Math.min(cap, Math.floor((canvas.offsetWidth * canvas.offsetHeight) / DENSITY));
     nodes = Array.from({ length: count }, () => ({
       x: Math.random() * W,
       y: Math.random() * H,
@@ -161,9 +164,22 @@
       ctx.fill();
     }
 
-    if (!reduced) requestAnimationFrame(frame);
+    if (running) rafId = requestAnimationFrame(frame);
   }
-  frame();
+
+  function start() { if (reduced || running) return; running = true; rafId = requestAnimationFrame(frame); }
+  function stop() { running = false; if (rafId) cancelAnimationFrame(rafId); rafId = null; }
+
+  if (reduced) {
+    frame(); // draw a single static frame, no loop
+  } else {
+    new IntersectionObserver((es) => {
+      es.forEach((e) => (e.isIntersecting ? start() : stop()));
+    }, { threshold: 0 }).observe(canvas);
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) stop(); else start();
+    });
+  }
 })();
 
 /* ---------- hero: role typer ---------- */
@@ -223,6 +239,10 @@
   function animateCount(el, target, suffix) {
     if (el.dataset.done) return;
     el.dataset.done = "1";
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      el.textContent = target + suffix;
+      return;
+    }
     const dur = 1300;
     const start = performance.now();
     function step(now) {
@@ -284,7 +304,7 @@
     ls: () => `01_about/  02_evals/  03_work/  04_why_hire_me/  05_off_the_clock/  06_contact/  <span class="ok">README: hire deep</span>`,
     "cat resume": () => {
       const a = document.createElement("a");
-      a.href = "assets/Deep-Halder-AI-SDET.pdf";
+      a.href = "assets/Deep-Halder-AI-SDET.pdf?v=2";
       a.download = "Deep-Halder-AI-SDET.pdf";
       document.body.appendChild(a); a.click(); a.remove();
       return `streaming <span class="cmd">Deep-Halder-AI-SDET.pdf</span>… <span class="ok">download started ✓</span>`;
@@ -320,4 +340,7 @@
 })();
 
 /* ---------- footer year ---------- */
-document.getElementById("year").textContent = new Date().getFullYear();
+(function () {
+  const y = document.getElementById("year");
+  if (y) y.textContent = new Date().getFullYear();
+})();
