@@ -339,6 +339,123 @@
   });
 })();
 
+/* ---------- interactive: AI ship-readiness audit ---------- */
+(function audit() {
+  const qsEl = document.getElementById("auditQs");
+  const runBtn = document.getElementById("auditRun");
+  const prog = document.getElementById("auditProgress");
+  const resultEl = document.getElementById("auditResult");
+  if (!qsEl || !runBtn || !resultEl) return;
+
+  const QUESTIONS = [
+    { id: "gold", short: "gold set", q: `You have a labeled eval set with expected outputs (a "gold" dataset).`, fix: `Build a gold dataset — even 50 hand-checked examples beat gut feel.` },
+    { id: "halluc", short: "hallucination", q: `You systematically test for hallucinations and wrong facts.`, fix: `Add factual-accuracy checks and track a hallucination rate with a denominator.` },
+    { id: "regress", short: "regression", q: `Every prompt or model change is re-run against your evals.`, fix: `Wire a regression eval so a "tiny prompt tweak" can't silently break production.` },
+    { id: "redteam", short: "red-team", q: `You red-team: jailbreaks, prompt injection, adversarial inputs.`, fix: `Red-team before your users do — one injection suite catches the scary failures.` },
+    { id: "tools", short: "tool-calls", q: `You validate tool-calls / agent actions, not just the final text.`, fix: `Test the actions, not just the words — a wrong tool-call is a silent failure.` },
+    { id: "rubric", short: "rubric", q: `Output quality is scored with a rubric, not gut feel.`, fix: `Define a rubric so "good" is measurable and repeatable across reviewers.` },
+    { id: "human", short: "human review", q: `Edge cases get human-in-the-loop review.`, fix: `Sample and human-review edge cases — automation misses the gray zone.` },
+    { id: "ci", short: "CI gate", q: `Evals run in CI and can block a bad release.`, fix: `Make evals a release gate — a red eval should stop the deploy.` },
+    { id: "confidence", short: "confidence", q: `You track a release-confidence metric over time.`, fix: `Track confidence across releases so "better" isn't just a feeling.` },
+    { id: "rollback", short: "rollback", q: `You have rollback / safety gates for AI failures in production.`, fix: `Add a kill-switch or rollback path for when the model misbehaves live.` },
+  ];
+
+  const answers = {};
+  let started = false;
+
+  function track(name, params) {
+    try { if (typeof window.gtag === "function") window.gtag("event", name, params || {}); } catch (e) {}
+  }
+  function esc(s) { return String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
+
+  QUESTIONS.forEach((item, i) => {
+    const row = document.createElement("div");
+    row.className = "audit__q";
+    const text = document.createElement("span");
+    text.className = "audit__q-text";
+    text.innerHTML = `<span class="audit__q-num mono">${String(i + 1).padStart(2, "0")}</span>${esc(item.q)}`;
+    const opts = document.createElement("div");
+    opts.className = "audit__opts";
+    opts.setAttribute("role", "group");
+    [["yes", 1], ["partly", 0.5], ["no", 0]].forEach(([label, val]) => {
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "audit__opt";
+      btn.textContent = label;
+      btn.addEventListener("click", () => {
+        answers[item.id] = val;
+        [...opts.children].forEach((c) => c.classList.remove("is-on"));
+        btn.classList.add("is-on");
+        if (!started) { started = true; track("audit_started"); }
+        prog.textContent = Object.keys(answers).length + " / " + QUESTIONS.length + " answered";
+      });
+      opts.appendChild(btn);
+    });
+    row.appendChild(text);
+    row.appendChild(opts);
+    qsEl.appendChild(row);
+  });
+
+  function verdict(score) {
+    if (score >= 80) return { cls: "v-ship", title: "SHIP WITH CONFIDENCE", msg: "Your safety net is real. This is what shipping AI responsibly looks like." };
+    if (score >= 55) return { cls: "v-gap", title: "SHIPPABLE — WITH GAPS", msg: "Mostly covered, but a few green checks still lie. Close the gaps below before they find you in prod." };
+    if (score >= 30) return { cls: "v-weak", title: "NOT READY", msg: "You're trusting vibes more than evidence. Fix the essentials below before the next release." };
+    return { cls: "v-blind", title: "FLYING BLIND", msg: "You're one bad prompt from an incident. Start with the fundamentals below." };
+  }
+
+  function render() {
+    let sum = 0;
+    QUESTIONS.forEach((it) => { sum += it.id in answers ? answers[it.id] : 0; });
+    const score = Math.round((sum / QUESTIONS.length) * 100);
+    const v = verdict(score);
+    const gaps = QUESTIONS.map((it) => ({ it, val: it.id in answers ? answers[it.id] : 0 }))
+      .filter((x) => x.val < 1).sort((a, b) => a.val - b.val).slice(0, 3);
+    const checks = QUESTIONS.map((it) => {
+      const val = it.id in answers ? answers[it.id] : 0;
+      const st = val === 1 ? "pass" : val === 0.5 ? "part" : "fail";
+      return `<span class="audit__chk ${st}" title="${esc(it.q)}">${esc(it.short)}</span>`;
+    }).join("");
+    const fixes = gaps.length
+      ? `<ul class="audit__fixes">${gaps.map((g) => `<li><span class="audit__fix-arrow">→</span>${esc(g.it.fix)}</li>`).join("")}</ul>`
+      : `<p class="audit__nofix">No major gaps. Impressive — most teams fail at least three of these.</p>`;
+
+    resultEl.innerHTML =
+      `<div class="audit__verdict ${v.cls}">
+         <div class="audit__score"><span class="audit__score-num">${score}</span><span class="audit__score-max">/100</span></div>
+         <div class="audit__verdict-text"><h3>${v.title}</h3><p>${v.msg}</p></div>
+       </div>
+       <div class="audit__checks">${checks}</div>
+       <div><p class="audit__fixhead mono">// ${gaps.length ? "where to start" : "verdict"}:</p>${fixes}</div>
+       <div class="audit__cta">
+         <p>This was a 10-question gut-check. Want the real thing — a proper eval + red-team pass on your actual AI?</p>
+         <div class="audit__cta-row">
+           <a class="btn btn--solid" href="#contact" id="auditCta" data-hover>book a real audit →</a>
+           <button class="btn btn--ghost" id="auditReset" type="button">↻ start over</button>
+         </div>
+       </div>`;
+    resultEl.hidden = false;
+    track("audit_completed", { score: score, verdict: v.title });
+    resultEl.scrollIntoView({ behavior: "smooth", block: "center" });
+
+    document.getElementById("auditCta").addEventListener("click", () => track("audit_cta_click", { score: score }));
+    document.getElementById("auditReset").addEventListener("click", () => {
+      Object.keys(answers).forEach((k) => delete answers[k]);
+      qsEl.querySelectorAll(".audit__opt.is-on").forEach((b) => b.classList.remove("is-on"));
+      resultEl.hidden = true;
+      resultEl.innerHTML = "";
+      prog.textContent = "0 / " + QUESTIONS.length + " answered";
+      document.getElementById("audit").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }
+
+  runBtn.addEventListener("click", () => {
+    const orig = runBtn.textContent;
+    runBtn.disabled = true;
+    runBtn.textContent = "running…";
+    setTimeout(() => { render(); runBtn.disabled = false; runBtn.textContent = orig; }, 450);
+  });
+})();
+
 /* ---------- footer year ---------- */
 (function () {
   const y = document.getElementById("year");

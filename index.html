@@ -8,6 +8,14 @@
   <meta name="author" content="Deep Halder" />
   <link rel="canonical" href="https://deephalder.com/" />
   <meta name="theme-color" content="#07090c" />
+  <!-- Google Analytics (GA4) — replace BOTH G-XXXXXXXXXX below with your free Measurement ID from analytics.google.com -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXXXXX');
+  </script>
   <meta property="og:title" content="Deep Halder — I make AI prove itself." />
   <meta property="og:description" content="Senior AI SDET · LLM Evaluation · Agent Testing · Red-Teaming · 8 yrs · Bangalore · open to global remote" />
   <meta property="og:type" content="website" />
@@ -25,7 +33,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css?v=11" />
+  <link rel="stylesheet" href="css/style.css?v=12" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
   <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
@@ -92,8 +100,9 @@
       <a href="#evals" data-hover><span class="nav__idx">02.</span>evals</a>
       <a href="#work" data-hover><span class="nav__idx">03.</span>work</a>
       <a href="#hire" data-hover><span class="nav__idx">04.</span>why me</a>
-      <a href="#offwork" data-hover><span class="nav__idx">05.</span>off</a>
-      <a href="#contact" data-hover><span class="nav__idx">06.</span>contact</a>
+      <a href="#audit" data-hover><span class="nav__idx">05.</span>audit</a>
+      <a href="#offwork" data-hover><span class="nav__idx">06.</span>off</a>
+      <a href="#contact" data-hover><span class="nav__idx">07.</span>contact</a>
     </div>
     <a class="nav__cta" href="https://api.whatsapp.com/send/?phone=916001266673&amp;text&amp;type=phone_number&amp;app_absent=0" target="_blank" rel="noopener" data-hover>say hi 👋</a>
     <details class="nav__menu">
@@ -103,8 +112,9 @@
         <a href="#evals"><span class="nav__idx">02.</span>evals</a>
         <a href="#work"><span class="nav__idx">03.</span>work</a>
         <a href="#hire"><span class="nav__idx">04.</span>why me</a>
-        <a href="#offwork"><span class="nav__idx">05.</span>off the clock</a>
-        <a href="#contact"><span class="nav__idx">06.</span>contact</a>
+        <a href="#audit"><span class="nav__idx">05.</span>audit your AI</a>
+        <a href="#offwork"><span class="nav__idx">06.</span>off the clock</a>
+        <a href="#contact"><span class="nav__idx">07.</span>contact</a>
       </div>
     </details>
   </nav>
@@ -437,9 +447,31 @@
       </div>
     </section>
 
+    <!-- ============ AUDIT (interactive) ============ -->
+    <section class="section" id="audit">
+      <h2 class="section__title reveal"><span class="section__idx mono">05.</span> is your AI ready? <span class="section__sub mono">// run a 30-second ship-readiness audit on your own system</span></h2>
+      <div class="audit reveal">
+        <div class="audit__box">
+          <div class="audit__barrow">
+            <span class="tcard__dot"></span><span class="tcard__dot"></span><span class="tcard__dot"></span>
+            <span class="audit__title mono">$ audit --your-ai</span>
+          </div>
+          <div class="audit__body">
+            <p class="audit__intro">10 honest questions about how you test your AI. You get a readiness score and the exact gaps to fix — it runs entirely in your browser, nothing is stored or sent.</p>
+            <div class="audit__qs" id="auditQs"></div>
+            <div class="audit__run">
+              <button class="btn btn--solid" id="auditRun" type="button">▶ run audit</button>
+              <span class="audit__progress mono" id="auditProgress">0 / 10 answered</span>
+            </div>
+            <div class="audit__result" id="auditResult" hidden></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ OFF THE CLOCK ============ -->
     <section class="section" id="offwork">
-      <h2 class="section__title reveal"><span class="section__idx mono">05.</span> off the clock <span class="section__sub mono">// proof I'm not a language model: I log off</span></h2>
+      <h2 class="section__title reveal"><span class="section__idx mono">06.</span> off the clock <span class="section__sub mono">// proof I'm not a language model: I log off</span></h2>
 
       <div class="scene reveal" aria-hidden="true">
         <svg viewBox="0 0 1200 340" xmlns="http://www.w3.org/2000/svg" fill="none">
@@ -520,7 +552,7 @@
 
     <!-- ============ CONTACT ============ -->
     <section class="section section--contact" id="contact">
-      <h2 class="section__title reveal"><span class="section__idx mono">06.</span> contact</h2>
+      <h2 class="section__title reveal"><span class="section__idx mono">07.</span> contact</h2>
       <div class="contact reveal">
         <p class="contact__big">
           Shipping an AI product and wondering<br />
@@ -563,7 +595,7 @@
     <span class="footer__right">written by a human, tested like an AI · <span class="accent">exit code 0</span></span>
   </footer>
 
-  <script src="js/main.js?v=7"></script>
+  <script src="js/main.js?v=8"></script>
   <script data-goatcounter="https://deephalder.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
 </body>
 </html>
