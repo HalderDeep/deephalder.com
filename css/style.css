@@ -760,6 +760,58 @@ body::before {
 .think__step h4 { font-size: 16px; margin-bottom: 8px; color: var(--accent); font-family: var(--font-mono); }
 .think__step p { font-size: 13.5px; color: var(--text-dim); }
 
+/* ============ TOPTAL VERIFIED BADGE ============ */
+.verified { margin-top: clamp(40px, 6vw, 64px); }
+.verified__label { font-size: 13px; color: var(--text-dim); margin-bottom: 24px; }
+.verified__row { display: flex; gap: clamp(24px, 4vw, 44px); align-items: center; flex-wrap: wrap; }
+.verified__text { flex: 1; min-width: 280px; }
+.verified__text p { color: var(--text-dim); font-size: 15.5px; margin-bottom: 14px; }
+.verified__text strong { color: var(--text); }
+.verified__link { color: var(--accent); text-decoration: none; font-size: 14px; }
+.verified__link:hover { text-decoration: underline; }
+
+.ttbadge {
+  display: inline-block;
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  --tt-h: polygon(50% 0, 100% 24%, 100% 76%, 50% 100%, 0 76%, 0 24%);
+}
+.ttbadge:hover { transform: translateY(-5px); }
+.ttbadge .tt-h { display: inline-block; background: #25a9ef; padding: 6px; clip-path: var(--tt-h); }
+.ttbadge .tt-a {
+  width: 200px;
+  padding: 24px 0 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: #204ecf;
+  text-align: center;
+  background:
+    radial-gradient(circle at 20% -10%, #00c3ff -80%, #fff 30%),
+    radial-gradient(circle at -20% 20%, #00c3ff -80%, #fff 30%),
+    radial-gradient(circle at 70% 100%, #00c3ff -80%, #fff 30%),
+    radial-gradient(circle at 120% 80%, #00c3ff -80%, #fff 30%);
+  background-blend-mode: multiply;
+  clip-path: var(--tt-h);
+  box-shadow: 0 28px 50px rgba(6, 30, 96, 0.35);
+}
+.ttbadge .tt-b { margin: 0; font-size: 19px; font-weight: 700; line-height: 1; }
+.ttbadge .tt-c { width: 120px; height: 1px; background: #25a9ef; }
+.ttbadge .tt-d { font-size: 16px; margin-bottom: -6px; }
+.ttbadge .tt-f {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 20px;
+  border-radius: 6px;
+  background: #296bff;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+}
+
 /* ============ OFF THE CLOCK ============ */
 .scene {
   background: var(--bg-card);
